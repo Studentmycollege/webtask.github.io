@@ -1,0 +1,810 @@
+/* Color Palette */
+:root {
+    --black: #000000;
+    --dark-grey: #121212; /* Slightly lighter dark for contrast */
+    --bright-green: #00FF00; /* Neon/Bright Green */
+    --accent-green: #00B300; /* Slightly darker green for hover/active */
+    --white: #FFFFFF;
+    --text-color: #E0E0E0; /* Light grey for main text */
+    --light-grey-bg: #222222; /* For cards/sections */
+    --border-color: rgba(0, 255, 0, 0.3); /* Greenish translucent border */
+}
+
+/* Base and Utility Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif; /* Modern font for headings */
+    transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
+}
+
+body {
+    background-color: var(--black);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Flexbox utilities for alignment */
+.flex-between-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-center-y {
+    display: flex;
+    align-items: center;
+}
+
+.flex-layout {
+    display: flex;
+    flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+    gap: 30px; /* Space between columns */
+}
+
+/* Width Classes - (Adjusted for Flexbox) */
+.width-100 { width: 100%; }
+.width-33 { flex: 1; min-width: 300px; } /* Flex item, min-width for responsiveness */
+.margin-top-50 { margin-top: 50px; }
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--bright-green);
+    color: var(--black);
+    border: 2px solid var(--bright-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 255, 0, 0.4);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--bright-green);
+    border: 2px solid var(--bright-green);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bright-green);
+    color: var(--black);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 255, 0, 0.4);
+}
+
+/* Card Effect for main content sections */
+.card-effect {
+    background-color: var(--light-grey-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1); /* Subtle green glow */
+    height: 100%; /* Ensure cards fill height in flex container */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-effect:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2); /* More prominent glow */
+}
+
+/* ----------------------------------
+   TOP HEADER (News Ticker)
+   ---------------------------------- */
+.top-header {
+    background-color: var(--dark-grey);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    height: 3rem;
+}
+
+.newslist {
+    color: var(--bright-green);
+    font-weight: 700;
+    margin-right: 15px;
+    white-space: nowrap; /* Prevent "NEWS" from wrapping */
+    font-size: 1.3rem;
+}
+
+.newslist .fas {
+    margin-right: 8px;
+    color: var(--bright-green);
+}
+
+.headquoto {
+   
+    color: var(--text-color);
+    font-size: 1em;
+    flex-grow: 1; /* Allows marquee to take remaining space */
+}
+.highlight{
+    text-decoration: none;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+/* ----------------------------------
+   MAIN HEADER (Logo & Navigation)
+   ---------------------------------- */
+.main-header-menu {
+    background-color: var(--black);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: auto; /* Make header sticky */
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow when sticky */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    
+}
+
+.logo img {
+    height: 120px; /* Adjust as needed */
+    margin-right: 10px;
+    /* Remove filter: brightness(0) invert(1); if logo is already dark/green */
+    /* If your logo is light, use: filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(0, 255, 0, 0.5)); */
+    /* For a green logo: */
+    filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.7)); /* Subtle green glow on logo */
+}
+
+.college-name {
+    color: var(--bright-green);
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.college-name:hover{
+    color: var(--text-color);
+    text-shadow:  3px 3px 10px var(--bright-green);
+    
+
+}
+
+.main-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu li {
+    margin: 0 10px;
+}
+
+.main-menu li a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 600;
+    padding: 8px 1px;
+    position: relative;
+    overflow: hidden;
+    display: block; /* For consistent hover area */
+}
+
+.main-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--bright-green);
+    transform: scaleX(0);
+    transform-origin: bottom right; /* Animation from right to left */
+    transition: transform 0.4s ease-out;
+}
+
+.main-menu li a:hover {
+    color: var(--bright-green);
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+.main-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left; /* Animation to left */
+}
+
+/* ----------------------------------
+   HERO SECTION
+   ---------------------------------- */
+.hero-section {
+    position: relative;
+    height: 700px; /* Large height for impact */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: left;
+    color: var(--white);
+   
+}
+#herocontent{
+     animation: slidefromleft 1s ease forwards ;
+    opacity: 0;
+}
+
+@keyframes slidefromleft{
+    0%{
+        opacity: 0;
+        transform: translateX(-100%)
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hero-main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(0.6) saturate(1.2); /* Darken and slightly enhance colors */
+}
+
+.hero-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    margin-right: auto; /* Push content to left */
+    padding-left: 50px;
+}
+
+.hero-subheading {
+    font-size: 1.2em;
+    color: var(--bright-green);
+    margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.hero-content h1 {
+    font-size: 4.5em; /* Very large heading */
+    line-height: 1.1;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Subtle green text shadow */
+}
+
+.hero-tagline {
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    color: var(--text-color);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* Hero Animations */
+
+
+.animate-fade-in {
+     animation: fadeIn 1s ease-out forwards;
+          opacity: 0; 
+        }
+.animate-slide-up { 
+    animation: slideUp 1s ease-out forwards 0.3s;
+     opacity: 0;
+ }
+.animate-fade-in-delay { 
+    animation: fadeIn 1s ease-out forwards 0.6s;
+     opacity: 0; 
+    }
+.animate-fade-in-delay-more { 
+    animation: fadeIn 1s ease-out forwards 0.9s; 
+    opacity: 0; 
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.feesdata{
+    padding: 1rem;
+}
+.fees{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin: 5px;
+}
+
+
+
+/* ----------------------------------
+   MAIN CONTENT COLUMNS
+   ---------------------------------- */
+ 
+.main-content-section {
+    padding-bottom: 80px;
+}
+
+.heading-sec {
+    border-bottom: 3px solid var(--bright-green);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.head-title {
+    color: var(--bright-green);
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.head-title .fas {
+    margin-right: 10px;
+    color: var(--white); /* White icons in green heading */
+}
+
+/* Latest News Section */
+.latest-news {
+    overflow: hidden; /* Important for marquee */
+}
+
+.news-marquee {
+    height: 400px; /* Fixed height for consistent marquee */
+}
+
+.latest-news-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.latest-news-ul li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Subtle separator */
+    color: var(--text-color);
+    font-size: 0.95em;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.latest-news-ul li:last-child {
+    border-bottom: none;
+}
+
+.latest-news-ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.latest-news-ul li a:hover {
+    color: var(--bright-green);
+    padding-left: 5px; /* Slight movement on hover */
+}
+
+.latest-news-ul li .new {
+    height: 40px; /* Adjust size of 'new' GIF */
+    margin-left: 2px;
+    vertical-align: middle;
+    position: relative;
+    right: 5px;
+    bottom: 15px;
+}
+.latest-news-column{
+     height: 80vh;
+   
+}
+
+.news-scroll{
+    height: 75vh;
+    overflow-y: scroll;
+}
+.about-column{
+    height: 80vh;
+}
+.college{
+    height: fit-content;
+    overflow-y: scroll;
+}
+/* About Us Section */
+.about-us p {
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 0.98em;
+}
+
+.read-more-link {
+    display: inline-block;
+    color: var(--bright-green);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.read-more-link:hover {
+    color: var(--accent-green);
+    transform: translateX(5px);
+}
+
+.read-more-link .fas {
+    margin-left: 8px;
+    font-size: 0.8em;
+}
+.heading-sec{
+    max-width: fit-content;
+    display: flex;
+
+}
+.newss{
+    text-decoration: none;
+    display: flex;
+}
+.newsicon{
+    position: relative;
+    right: 10%;
+   height: 80px;
+    width: 100px;
+}
+/* Departments Section */
+.department-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.department-list li {
+    margin-bottom: 10px;
+}
+
+.department-list li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1em;
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.department-list li a .fas {
+    margin-right: 10px;
+    color: var(--bright-green);
+}
+
+.department-list li a:hover {
+    color: var(--bright-green);
+    background-color: rgba(0, 255, 0, 0.05);
+    padding-left: 10px;
+    border-radius: 4px;
+}
+.figure-name:hover{
+    color: var(--bright-green);
+}
+.figure-link{
+    
+    color: #00FF00;
+}
+.figure-image-wrapper{
+      transition: transform 0.3s ease,box-shadow 0.3s ease; 
+}
+.figure-image-wrapper:hover{
+   transform: scale(1.08);
+    box-shadow: 0 4px 8px rbga(0,0,0,0.2) ; 
+ 
+}
+/* ----------------------------------
+           Our Achiever
+   ---------------------------------- */
+   .our_achiever{
+    height: 100vh;
+    width: 100vw;
+   }
+   .achiever_container{
+    
+    width: 60%;
+    height: 10%;
+    background:var(--accent-green);
+     margin: 5%;
+    gap: 5rem;
+    border-radius: 10px;
+    position: relative;
+    left: 13%;
+    
+   
+    
+   }
+   .achiever{
+    position: relative;
+    left: 10px;
+    text-align: center;
+    padding: auto;
+   }
+
+.achevi{
+ margin: 5%;
+    display: flex;
+    flex-direction: column;
+}
+   .ache_img {
+  height: 350px;          /* thoda chhota karo, zyada bada mat */
+  width: auto;            /* width automatic rakho, aspect ratio maintain hoga */
+  margin: 30px;     /* images ke beech spacing */
+  border-radius: 10px;    /* rounded corners */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+   cursor: pointer;
+  position: static;   
+}
+
+/* last image ke right margin hatao */
+.ache_img:last-child {
+  margin-right: 0;
+}
+
+/* Hover effect */
+.ache_img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px var(--text-color);
+}
+
+
+
+
+/* ----------------------------------
+   FOOTER SECTION
+   ---------------------------------- */
+.footer-section {
+    background-color: var(--dark-grey);
+    padding: 60px 0 20px;
+    border-top: 2px solid var(--bright-green);
+    color: var(--text-color);
+}
+
+.footer-grid {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 280px; /* Minimum width for columns */
+}
+
+.footer-col h4 {
+    color: var(--bright-green);
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--white);
+}
+
+.footer-logo {
+    height: 35px;
+    vertical-align: middle;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 3px rgba(0, 255, 0, 0.7)); /* Green glow for footer logo */
+}
+
+.footer-col p {
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+}
+
+.footer-col ul li a:hover {
+    color: var(--bright-green);
+    transform: translateX(5px);
+}
+
+.footer-col ul li a .fas {
+    margin-right: 10px;
+    color: var(--bright-green);
+    font-size: 0.8em;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 0, 0.1);
+    color: var(--bright-green);
+    font-size: 1.2em;
+    border: 1px solid var(--bright-green);
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: var(--bright-green);
+    color: var(--black);
+    transform: translateY(-5px) rotate(5deg);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+.map-placeholder {
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--bright-green);
+}
+
+.footer-bottom {
+    background-color: var(--black);
+    padding: 15px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85em;
+    color: #999;
+}
+
+/* ----------------------------------
+   RESPONSIVE DESIGN
+   ---------------------------------- */
+@media (max-width: 992px) {
+    .main-menu {
+        display: none; /* Hide main menu on smaller screens for now (can add hamburger later) */
+    }
+    .main-header-menu .container {
+        justify-content: center; /* Center logo and button if menu is hidden */
+        flex-wrap: wrap;
+    }
+    .main-header-menu .btn-primary {
+        margin-top: 15px;
+    }
+
+    .hero-content {
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 0 auto;
+    }
+    .hero-content h1 {
+        font-size: 3.5em;
+    }
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .flex-layout {
+        flex-direction: column; /* Stack columns vertically */
+    }
+    .width-33 {
+        width: 100%;
+        margin-right: 0;
+    }
+    .footer-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .top-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .newslist {
+        margin-bottom: 5px;
+    }
+    .headquoto {
+        width: 100%;
+    }
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-tagline {
+        font-size: 1em;
+    }
+    .hero-buttons {
+        flex-direction: column;
+    }
+    .btn-primary, .btn-secondary {
+        width: 80%;
+        margin: 0 auto 15px auto;
+    }
+}
+#geetam{
+    height: 300px;
+    width: 300px;
+    font-size: 15px;
+    padding: 8px;
+}
+.arun{
+    color: white;
+}
+#apg{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 5px;
+}
+.mail{
+    text-decoration: none;
+    color: var(--text-color);
+}
