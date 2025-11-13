@@ -1,0 +1,848 @@
+/* ----------------------------------
+   1. Color Palette & Variables
+   ---------------------------------- */
+:root {
+    --black: #000000;
+    --dark-grey: #121212;
+    --bright-green: #00FF00;
+    --accent-green: #00B300;
+    --white: #FFFFFF;
+    --text-color: #E0E0E0;
+    --light-grey-bg: #222222;
+    --border-color: rgba(0, 255, 0, 0.3);
+    --animation-duration: 0.8s; /* Standard duration for entrance animations */
+    --transition-speed: 0.3s; /* Standard speed for hover effects */
+}
+
+/* ----------------------------------
+   2. Base and Utility Styles
+   ---------------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', 'Roboto', sans-serif;
+    /* Optimize transition: only include properties that change often */
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+body {
+    background-color: var(--black);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevents horizontal scroll from transitions/shadows */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Flexbox and Layout Utilities */
+.flex-between-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-center-y {
+    display: flex;
+    align-items: center;
+}
+
+.flex-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center; 
+}
+
+.width-100 { width: 100%; }
+/* Flexible width for 3-column layout on desktop */
+.width-33 { 
+    /* flex-grow: 1, flex-shrink: 1, flex-basis: 300px */
+    flex: 1 1 300px; 
+    min-width: 280px; 
+}
+.margin-top-50 { margin-top: 50px; }
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-primary {
+    background-color: var(--bright-green);
+    color: var(--black);
+    border: 2px solid var(--bright-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 255, 0, 0.4);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--bright-green);
+    border: 2px solid var(--bright-green);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bright-green);
+    color: var(--black);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 255, 0, 0.4);
+}
+
+/* Card Effect for main content sections */
+.card-effect {
+    background-color: var(--light-grey-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+
+.card-effect:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+}
+
+/* ----------------------------------
+   3. KEYFRAME ANIMATIONS
+   ---------------------------------- */
+@keyframes slideInFromTop {
+    0% { transform: translateY(-50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+    0% { transform: translateX(-50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+    0% { transform: translateX(50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulseBorder {
+    0% { border-color: rgba(0, 255, 0, 0.3); box-shadow: 0 0 5px rgba(0, 255, 0, 0.1); }
+    50% { border-color: rgba(0, 255, 0, 0.7); box-shadow: 0 0 15px rgba(0, 255, 0, 0.4); }
+    100% { border-color: rgba(0, 255, 0, 0.3); box-shadow: 0 0 5px rgba(0, 255, 0, 0.1); }
+}
+
+/* Base Animation Class for elements that should start invisible */
+.animated {
+    opacity: 0;
+}
+
+/* Apply Slide In Animations (Use 'both' to retain final state) */
+.animate-slide-top {
+    animation: slideInFromTop var(--animation-duration) ease-out both;
+}
+
+.animate-slide-left {
+    animation: slideInFromLeft var(--animation-duration) ease-out both;
+}
+
+.animate-slide-right {
+    animation: slideInFromRight var(--animation-duration) ease-out both;
+}
+
+/* --- Hero Animations (using your existing names, adjusted) --- */
+/* The hero content should only animate once on load */
+#herocontent {
+    opacity: 0;
+    animation: slidefromleft var(--animation-duration) ease-out forwards;
+}
+@keyframes slidefromleft {
+    0%{ opacity: 0; transform: translateX(-100%)}
+    100%{ opacity: 1; transform: translateX(0); }
+}
+
+/* Applying entrance animation to main content cards */
+.main-content-section .card-effect {
+    opacity: 0;
+    /* Base animation settings - delay will be applied via new classes */
+    animation: slideInFromTop var(--animation-duration) ease-out forwards;
+}
+
+/* Staggered Delay Utility Classes (Add these to cards in the HTML) */
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }
+.animate-delay-5 { animation-delay: 0.5s; }
+.animate-delay-6 { animation-delay: 0.6s; }
+/* ----------------------------------
+   4. HEADER & NAVIGATION
+   ---------------------------------- */
+   .top-header {
+    background-color: var(--dark-grey);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    height: 3rem;
+    /* Pulsing effect to draw attention to news ticker */
+    animation: pulseBorder 5s infinite alternate ease-in-out 3s; 
+}
+
+.newslist {
+    color: var(--bright-green);
+    font-weight: 700;
+    margin-right: 15px;
+    white-space: nowrap; 
+    font-size: 1.1rem; /* Adjusted for better fit */
+}
+
+.newslist .fas {
+    margin-right: 8px;
+    color: var(--bright-green);
+}
+
+.headquoto {
+    color: var(--text-color);
+    font-size: 1em;
+    flex-grow: 1; 
+}
+.highlight{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--white);
+}
+
+.main-header-menu {
+    background-color: var(--black);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    /* Corrected to sticky */
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 80px; /* Reduced for better proportion */
+    margin-right: 15px;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.7)); 
+}
+
+.college-name {
+    color: var(--bright-green);
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.college-name:hover{
+    color: var(--text-color);
+    text-shadow: 3px 3px 10px var(--bright-green);
+}
+
+.main-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu li {
+    margin: 0 10px;
+}
+
+.main-menu li a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 600;
+    padding: 8px 1px;
+    position: relative;
+    overflow: hidden;
+    display: block; 
+}
+
+.main-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--bright-green);
+    transform: scaleX(0);
+    transform-origin: bottom right; 
+    transition: transform 0.4s ease-out;
+}
+
+.main-menu li a:hover {
+    color: var(--bright-green);
+    transform: translateY(-3px); 
+}
+
+.main-menu li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left; 
+}
+
+/* ----------------------------------
+   5. HERO SECTION
+   ---------------------------------- */
+.hero-section {
+    position: relative;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: left;
+    color: var(--white);
+}
+
+.hero-main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(0.6) saturate(1.2); 
+}
+
+.hero-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    width: 100%;
+    padding-left: 50px;
+}
+
+.hero-subheading {
+    font-size: 1.2em;
+    color: var(--bright-green);
+    margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.hero-content h1 {
+    font-size: 4.5em; 
+    line-height: 1.1;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.hero-tagline {
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    color: var(--text-color);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.feesdata{
+    padding-top: 2rem; /* Separated from buttons */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.fees{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 1.1rem; /* Adjusted for better fit */
+    margin: 5px 0;
+}
+.fees:hover{
+    color: var(--bright-green);
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+/* ----------------------------------
+   6. MAIN CONTENT SECTIONS
+   ---------------------------------- */
+.main-content-section {
+    padding-bottom: 80px;
+}
+
+.heading-sec {
+    border-bottom: 3px solid var(--bright-green);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.head-title {
+    color: var(--bright-green);
+    font-size: 1.6em; /* Slightly adjusted */
+    font-weight: 700;
+}
+
+.head-title .fas {
+    margin-right: 10px;
+    color: var(--white); 
+}
+
+/* Latest News Section */
+.latest-news {
+    overflow: hidden; 
+}
+.latest-news-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Marquee (Legacy tag, but styles refined) */
+.news-marquee {
+    height: 380px; /* Consistent height */
+}
+
+.latest-news-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.latest-news-ul li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+    color: var(--text-color);
+    font-size: 0.95em;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.latest-news-ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.latest-news-ul li a:hover {
+    color: var(--bright-green);
+    padding-left: 5px; 
+}
+
+.latest-news-ul li .new {
+    height: 30px; /* Reduced GIF size */
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* News Scroll for Circulars/Notices */
+.news-scroll {
+    /* Calculated height: 100% of parent minus space for heading and padding */
+    height: calc(100% - 90px); 
+    overflow-y: auto; 
+    padding-right: 15px; 
+}
+/* Custom Scrollbar for a more cyber look (Webkit browsers) */
+.news-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.news-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--accent-green);
+    border-radius: 10px;
+}
+.news-scroll::-webkit-scrollbar-track {
+    background-color: var(--dark-grey);
+}
+
+/* About Us Section */
+.about-column {
+    display: flex;
+    flex-direction: column;
+}
+.about-us p {
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 0.98em;
+}
+
+.read-more-link {
+    display: inline-block;
+    color: var(--bright-green);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: auto; /* Pushes the link to the bottom */
+}
+
+.newss{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+.newsicon{
+    height: 60px; /* Reduced icon size */
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Departments Section */
+.department-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1; /* Allows list to fill remaining space */
+}
+.department-list li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1em;
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+/* Key Figures Section */
+#apg {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 5px 5px;
+    gap: 20px;
+}
+.figure-card {
+    flex: 0 1 280px; /* Fixed size cards */
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.figure-image-wrapper {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid var(--bright-green);
+    margin-bottom: 15px;
+    height: 250px; /* Set a consistent height for the image wrapper */
+}
+.figure-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-speed);
+}
+.figure-card:hover .figure-image {
+    transform: scale(1.05);
+}
+
+.figure-name {
+    color: var(--white);
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+.figure-title {
+    color: var(--text-color);
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+.figure-link{
+    color: var(--bright-green);
+    text-decoration: none;
+    font-weight: 600;
+}
+.figure-link:hover {
+    text-decoration: underline;
+}
+
+/* Achiever Section */
+.our_achiever{
+    /* height: 100vh; REMOVED - too rigid */
+    width: 100%;
+    padding: 50px 0;
+    margin-top: 50px;
+    background-color: var(--light-grey-bg);
+    border-top: 1px solid var(--border-color);
+}
+.achiever_container{
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+.achiever h1 {
+    color: var(--bright-green);
+    font-size: 2.5rem;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--bright-green);
+    display: inline-block;
+}
+.achevi{
+    overflow: hidden;
+    margin: 0;
+}
+.ache_img {
+    height: 300px; 
+    width: auto; 
+    margin: 0 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    cursor: pointer;
+}
+.ache_img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px var(--bright-green);
+}
+
+/* ----------------------------------
+   7. FOOTER SECTION
+   ---------------------------------- */
+.footer-section {
+    background-color: var(--dark-grey);
+    padding: 60px 0 20px;
+    border-top: 2px solid var(--bright-green);
+    color: var(--text-color);
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px; /* Increased gap for better spacing */
+    margin-bottom: 40px;
+}
+
+.footer-col {
+    flex: 1 1 200px; /* Allows columns to grow/shrink, minimum 200px */
+}
+
+.footer-col h4 {
+    color: var(--bright-green);
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--white);
+}
+
+.footer-logo {
+    height: 35px;
+    vertical-align: middle;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 3px rgba(0, 255, 0, 0.7)); 
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+}
+
+.footer-col ul li a:hover, .mail:hover {
+    color: var(--bright-green);
+    transform: translateX(5px);
+}
+.mail{
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+
+.footer-col ul li a .fas {
+    margin-right: 10px;
+    color: var(--bright-green);
+    font-size: 0.8em;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 0, 0.1);
+    color: var(--bright-green);
+    font-size: 1.2em;
+    border: 1px solid var(--bright-green);
+    transition: all var(--transition-speed) ease;
+}
+
+.social-icon:hover {
+    background-color: var(--bright-green);
+    color: var(--black);
+    transform: translateY(-5px) rotate(5deg);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+.map-placeholder {
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--bright-green);
+}
+
+.footer-bottom {
+    background-color: var(--black);
+    padding: 15px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85em;
+    color: #999;
+}
+
+/* ----------------------------------
+   8. RESPONSIVE DESIGN
+   ---------------------------------- */
+@media (max-width: 992px) {
+    /* Main navigation is hidden, will require a JavaScript/HTML toggle for a hamburger menu */
+    .main-menu {
+        display: none; 
+    }
+    .main-header-menu .container {
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    /* Content Columns Stack */
+    .flex-layout {
+        gap: 20px;
+    }
+    .width-33 {
+        flex-basis: 100%; /* Stacks the three main content cards */
+        min-width: unset; 
+    }
+    .card-effect {
+        height: auto; /* Allow height to adjust to stacked content */
+    }
+    .news-marquee {
+        height: 300px; /* Adjusted height for stacked news */
+    }
+
+    /* Footer Centering */
+    .footer-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Top Header */
+    .top-header {
+        height: auto;
+        padding: 5px 0;
+    }
+    .top-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .newslist {
+        margin-bottom: 5px;
+    }
+    .headquoto {
+        width: 100%;
+    }
+
+    /* Logo and Header */
+    .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+    .logo img {
+        height: 60px;
+    }
+    .college-name {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    .main-header-menu .container {
+        flex-direction: column;
+    }
+    .apply {
+        margin-top: 10px;
+    }
+
+    /* Hero Section */
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-tagline {
+        font-size: 1em;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+  
+}
+.feesdata{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px;
+    gap: 15px;
+    text-decoration: underline;
+}

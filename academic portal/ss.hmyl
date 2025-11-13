@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REC Sonbhadra | Modern Academic Portal</title>
+    <link rel="icon" href="logo.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* 1. Color Palette & Variables */
+        :root {
+            --bs-black: #000000;
+            --bs-dark-grey: #121212;
+            --bs-bright-green: #00FF00;
+            --bs-accent-green: #00B300;
+            --bs-text-color: #E0E0E0;
+            --bs-light-grey-bg: #222222;
+            --bs-transition-speed: 0.3s;
+        }
+
+        /* 2. Base and Utility Overrides */
+        body {
+            background-color: var(--bs-black) !important;
+            color: var(--bs-text-color) !important;
+            line-height: 1.6;
+        }
+        
+        a {
+            transition: color var(--bs-transition-speed);
+        }
+
+        /* 3. Header & Navigation */
+        .top-header {
+            background-color: var(--bs-dark-grey);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+        }
+        .logo img {
+            height: 60px;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.7)); 
+        }
+        .college-name {
+            color: var(--bs-bright-green);
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        .nav-link.text-white:hover {
+            color: var(--bs-bright-green) !important;
+            transform: translateY(-2px);
+        }
+
+        /* 4. Buttons Overrides */
+        .btn-primary {
+            background-color: var(--bs-bright-green) !important;
+            border-color: var(--bs-bright-green) !important;
+            color: var(--bs-black) !important;
+            font-weight: 600;
+            transition: all var(--bs-transition-speed) ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--bs-accent-green) !important;
+            border-color: var(--bs-accent-green) !important;
+            color: var(--bs-white) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 255, 0, 0.4);
+        }
+        .btn-secondary {
+            background-color: transparent !important;
+            color: var(--bs-bright-green) !important;
+            border: 2px solid var(--bs-bright-green) !important;
+            font-weight: 600;
+            transition: all var(--bs-transition-speed) ease;
+        }
+        .btn-secondary:hover {
+            background-color: var(--bs-bright-green) !important;
+            color: var(--bs-black) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 255, 0, 0.4);
+        }
+        
+        /* 5. Hero Section */
+        .hero-section {
+            position: relative;
+            height: 700px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-main-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.6) saturate(1.2); 
+        }
+        .hero-background-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+            padding-left: 50px;
+        }
+        .hero-content h1 {
+            font-size: 4.5em; 
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        /* 6. Custom Card Styles */
+        .custom-card {
+            background-color: var(--bs-light-grey-bg) !important;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+            transition: all var(--bs-transition-speed) ease;
+            height: 100%;
+        }
+        .custom-card:hover {
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+        }
+        .card-heading {
+            color: var(--bs-bright-green);
+            font-weight: 700;
+        }
+        .news-marquee {
+            height: 380px;
+        }
+
+        /* 7. Scrollbar for Marquee (Webkit only) */
+        .news-scroll {
+            height: calc(100% - 90px); 
+            overflow-y: auto; 
+            padding-right: 15px; 
+        }
+        .news-scroll::-webkit-scrollbar { width: 8px; }
+        .news-scroll::-webkit-scrollbar-thumb { background-color: var(--bs-accent-green); border-radius: 10px; }
+        .news-scroll::-webkit-scrollbar-track { background-color: var(--bs-dark-grey); }
+        
+        /* 8. Achiever Section */
+        .achiever_img {
+            height: 300px; 
+            width: auto; 
+            margin: 0 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            transition: transform var(--bs-transition-speed), box-shadow var(--bs-transition-speed);
+            cursor: pointer;
+        }
+        .achiever_img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px var(--bs-bright-green);
+        }
+
+        /* Responsive Adjustments for Mobile */
+        @media (max-width: 600px) {
+            .hero-content {
+                padding-left: 15px;
+            }
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-header p-2">
+        <div class="container d-flex flex-column flex-md-row align-items-md-center">
+            <b class="text-green fw-bold me-3 text-nowrap"><i class="fas fa-bullhorn me-2"></i> NEWS :</b>
+            <marquee class="text-white flex-grow-1" behavior="scroll" direction="left" scrollamount="12">
+                <a class="text-white text-decoration-none fw-bold me-5" href="https://uptac.admissions.nic.in/">Uttar Pradesh Technical Admission Counselling 2025</a>
+                <a class="text-white text-decoration-none fw-bold" href="https://www.cncrecs.in/"> || IEEE International Conference on Communication Networks and Computing (IEEE-CNC 2025), December 29-30, 2025</a>
+            </marquee>
+        </div>
+    </div> 
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-lg">
+        <div class="container-fluid container">
+            <a class="navbar-brand logo d-flex align-items-center" href="#">
+                <img src="logo.png" alt="REC Sonbhadra Logo" class="d-inline-block align-text-top">
+                <span class="college-name ms-2">REC Sonbhadra</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"> <a class="nav-link text-white" href="#">Home</a></li>
+                    <li class="nav-item"> <a class="nav-link text-white" href="#">The College</a></li>
+                    <li class="nav-item"> <a class="nav-link text-white" href="#">Academics</a></li>
+                    <li class="nav-item"> <a class="nav-link text-white" href="http://recsonbhadra.ac.in/academics/admission">Admission</a></li>
+                    <li class="nav-item"> <a class="nav-link text-white" href="#">Departments</a></li>
+                    <li class="nav-item"> <a class="nav-link text-white" href="#">Facilities</a></li>
+                    <li class="nav-item"> <a class="nav-link text-white" href="http://recsonbhadra.ac.in/contactus">Contact Us</a></li>
+                </ul>
+                <a href="https://uptac.admissions.nic.in/document/admission-guidelines-for-academic-session-2025-26-2/" class="btn btn-primary d-flex align-items-center">
+                    Apply Now <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section mb-5">
+        <div class="hero-background-overlay"></div>
+        <img class="hero-main-image" src="college.png" alt="Rajkiya Engineering College">
+        <div class="container hero-content">
+            <p class="hero-subheading text-green mb-2">Welcome to</p>
+            <h1 class="text-white mb-4">Rajkiya Engineering College <br> Sonbhadra.</h1>
+            <p class="hero-tagline fs-5 text-light mb-4">Nurturing Innovation, Inspiring Futures.</p>
+            <div class="d-flex flex-wrap gap-3 mb-4">
+                <a href="http://recsonbhadra.ac.in/career" class="btn btn-secondary">Explore Programs <i class="fas fa-graduation-cap ms-2"></i></a>
+                <a href="https://campus-tour-tau.vercel.app/" class="btn btn-primary">Virtual Tour <i class="fas fa-play-circle ms-2"></i></a>
+            </div>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="https://formbuilder.ccavenue.com/live/rec-sonbhadra" class="text-white text-decoration-none fw-bold border-bottom border-green pb-1">Online Fee Submission</a>
+                <a class="text-white text-decoration-none fw-bold border-bottom border-green pb-1" href="http://recsonbhadra.ac.in/static/media/PlacementRecord-2025.5853ff3d2d9bba6c89c3.pdf"> Placement Record 2024-25</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pb-5">
+        <div class="row g-4">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="p-4 custom-card">
+                    <div class="border-bottom border-success pb-3 mb-4 d-flex align-items-center">
+                        <h3 class="card-heading fs-4"><i class="fas fa-newspaper me-2 text-white"></i>News & e-tender</h3>
+                    </div>
+                    
+                    <div class="accordion accordion-flush" id="newsAccordion">
+                        
+                        <div class="accordion-item bg-transparent text-white border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-green fw-bold py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    One-Week Course on Security & Privacy... <span class="badge bg-danger ms-2">NEW</span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#newsAccordion">
+                                <div class="accordion-body text-light small">
+                                    Course on Security & Privacy in Cyber World: Challenges & Solutions (September 26-30, 2025). <a href="https://res.cloudinary.com/recsmedia/image/upload/v1758188081/circularnews/vrunbdcy3myyoqw7v7qw.pdf" class="text-white-50 small" target="_blank">View PDF</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-transparent text-white border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white fw-bold py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Sealed Quotations: Supply of Books...
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#newsAccordion">
+                                <div class="accordion-body text-light small">
+                                    Notification No. 88/09/LIB/REC/SONBH/2025, 08/09/2025 for College Library books. <a href="https://res.cloudinary.com/recsmedia/image/upload/v1755680769/circularnews/jzwegcewn9vftcceq91x.pdf" class="text-white-50 small" target="_blank">View PDF</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item bg-transparent text-white border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-green fw-bold py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Advertisement for JRA Post... <span class="badge bg-danger ms-2">NEW</span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#newsAccordion">
+                                <div class="accordion-body text-light small">
+                                    Application Form for the post of Junior Research Assistant (JRA) in CSTUP sponsored Project. <a href="https://res.cloudinary.com/recsmedia/image/upload/v1757081054/circularnews/vkikbqewxjlp9gj31h7d.pdf" class="text-white-50 small" target="_blank">View PDF</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="news-marquee mt-3 p-2 border-top border-secondary-subtle">
+                             <marquee direction="up" scrollamount="4" scrolldelay="50" onmouseover="this.stop();" onmouseout="this.start();">
+                                <ul class="list-unstyled">
+                                    <li class="py-1"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-angle-right text-green me-2"></i> Sealed Quotations: Group Accidental Insurance Policy...</a></li>
+                                    <li class="py-1"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-angle-right text-green me-2"></i> Short-Term Student Internship in CSE Department...</a></li>
+                                    <li class="py-1"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-angle-right text-green me-2"></i> One-Week Short-Term Course on Emerging AI Paradigms...</a></li>
+                                    <li class="py-1"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-angle-right text-green me-2"></i> BOQ Bid for Procurement of Different Lab Items...</a></li>
+                                </ul>
+                            </marquee>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                 <div class="p-4 custom-card d-flex flex-column">
+                    <div class="border-bottom border-success pb-3 mb-4 d-flex align-items-center justify-content-between">
+                        <h3 class="card-heading fs-4"><i class="fas fa-bell me-2 text-white"></i>Circulars & Notice</h3>
+                        <img src="./image/notice.png" alt="Notice Icon" height="60px" width="70px" class="ms-3">
+                    </div>
+                    <div class="news-scroll flex-grow-1">
+                        <ul class="list-unstyled">
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Scholarship Form Filling Instructions 2025... </a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Commencement of Classes for BTech 1st Year 2025-26... </a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Physical Reporting & Registration Guidelines... </a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Fee Structure 2025-26... </a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Induction Programme Schedule_2025-26... </a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Registration Guidelines for Odd Semester 2025-26...</a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Academic Calendar Odd Semester 2025-26... </a></li>
+                            <li class="py-2 border-bottom border-secondary-subtle"><a href="#" class="text-white text-decoration-none"><i class="fas fa-angle-right text-green me-2"></i> Scholarship Notice for Session 2025-26... </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-12">
+                        <div class="p-4 custom-card d-flex flex-column">
+                            <div class="border-bottom border-success pb-3 mb-4">
+                                <h3 class="card-heading fs-4"><i class="fas fa-info-circle me-2 text-white"></i> About REC Sonbhadra</h3>
+                            </div>
+                            <p class="small text-light">Rajkiya Engineering College, Sonbhadra was established by the Government of Uttar Pradesh in the year 2015... offering a 4-year undergraduate B.Tech. programme in Computer Science and Engineering. Two more branches, Electrical Engineering and Electronics Engineering were started in 2016. From 2023-24, Mining Engineering was introduced. All courses are approved by AICTE and affiliated to Dr. A.P.J. Abdul Kalam Technical University, Lucknow.</p>
+                            <a href="#" class="text-green text-decoration-none mt-auto fw-bold">Read More <i class="fas fa-chevron-right ms-1"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-12">
+                        <div class="p-4 custom-card d-flex flex-column">
+                            <div class="border-bottom border-success pb-3 mb-4">
+                                <h3 class="card-heading fs-4"><i class="fas fa-building me-2 text-white"></i> Our Departments</h3>
+                            </div>
+                            <ul class="list-unstyled flex-grow-1">
+                                <li class="py-1"><a href="#" class="text-white text-decoration-none"><i class="fas fa-code text-green me-2"></i> Computer Science & Engineering</a></li>
+                                <li class="py-1"><a href="#" class="text-white text-decoration-none"><i class="fas fa-bolt text-green me-2"></i> Electrical Engineering</a></li>
+                                <li class="py-1"><a href="#" class="text-white text-decoration-none"><i class="fas fa-cogs text-green me-2"></i> Mining Engineering</a></li>
+                                <li class="py-1"><a href="#" class="text-white text-decoration-none"><i class="fas fa-chart-line text-green me-2"></i> Electronics Engineering</a></li>
+                                <li class="py-1"><a href="#" class="text-white text-decoration-none"><i class="fas fa-flask text-green me-2"></i> Applied Science & Humanities</a></li>
+                            </ul>
+                            <a href="#" class="text-green text-decoration-none mt-auto fw-bold">View All Departments <i class="fas fa-chevron-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="bg-dark-grey py-5 mt-5">
+        <div class="container text-center">
+            <h3 class="card-heading fs-3 border-bottom border-success pb-2 mb-5 d-inline-block"><i class="fas fa-users me-2"></i> Key Figures</h3>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 justify-content-center">
+                
+                <div class="col">
+                    <div class="custom-card p-3 h-100 d-flex flex-column align-items-center">
+                        <div class="figure-image-wrapper overflow-hidden rounded mb-3 border border-green" style="height: 150px; width: 100%;">
+                            <img src="yogi.png" alt="Hon'ble Chief Minister Yogi Adityanath" class="img-fluid w-100 h-100 object-fit-cover">
+                        </div>
+                        <h4 class="text-white fs-6 fw-bold mb-1">Hon'ble Shri Yogi Adityanath</h4>
+                        <p class="small text-light-emphasis mb-2">Chief Minister, Uttar Pradesh</p>
+                        <a href="#" class="text-green text-decoration-none mt-auto small fw-bold">Read Profile <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="custom-card p-3 h-100 d-flex flex-column align-items-center">
+                        <div class="figure-image-wrapper overflow-hidden rounded mb-3 border border-green" style="height: 150px; width: 100%;">
+                            <img src="shri ashish patel.png" alt="Hon'ble Education Minister" class="img-fluid w-100 h-100 object-fit-cover">
+                        </div>
+                        <h4 class="text-white fs-6 fw-bold mb-1">Hon'ble Shri Ashish patel</h4>
+                        <p class="small text-light-emphasis mb-2">Education Minister, Uttar Pradesh</p>
+                        <a href="#" class="text-green text-decoration-none mt-auto small fw-bold">Read Profile <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="custom-card p-3 h-100 d-flex flex-column align-items-center">
+                        <div class="figure-image-wrapper overflow-hidden rounded mb-3 border border-green" style="height: 150px; width: 100%;">
+                            <img src="geetam.png" alt="Director Prof.Geetam Singh Tomar" class="img-fluid w-100 h-100 object-fit-cover">
+                        </div>
+                        <h4 class="text-white fs-6 fw-bold mb-1">Prof. Geetam Singh Tomar</h4>
+                        <p class="small text-light-emphasis mb-2">Director REC Sonbhadra</p>
+                        <a href="#" class="text-green text-decoration-none mt-auto small fw-bold">Read Profile <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                 <div class="col">
+                    <div class="custom-card p-3 h-100 d-flex flex-column align-items-center">
+                        <div class="figure-image-wrapper overflow-hidden rounded mb-3 border border-green" style="height: 150px; width: 100%;">
+                            <img src="arun.jpg" alt="HOD Dr.Amod Kumar Tiwari" class="img-fluid w-100 h-100 object-fit-cover">
+                        </div>
+                        <h4 class="text-white fs-6 fw-bold mb-1">Dr. Amod Kumar Tiwari</h4>
+                        <p class="small text-light-emphasis mb-2">Associate Professor and Head</p>
+                        <a href="#" class="text-green text-decoration-none mt-auto small fw-bold">Read Profile <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="custom-card p-3 h-100 d-flex flex-column align-items-center">
+                        <div class="figure-image-wrapper overflow-hidden rounded mb-3 border border-green" style="height: 150px; width: 100%;">
+                            <img src="./image/dr.anurag sewak.jpg" alt="Assistant Professor Dr.Anurag Sewak" class="img-fluid w-100 h-100 object-fit-cover">
+                        </div>
+                        <h4 class="text-white fs-6 fw-bold mb-1">Dr. Anurag Sewak</h4>
+                        <p class="small text-light-emphasis mb-2">Assistant Professor Of CSE</p>
+                        <a href="#" class="text-green text-decoration-none mt-auto small fw-bold">Read Profile <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="custom-card p-3 h-100 d-flex flex-column align-items-center">
+                        <div class="figure-image-wrapper overflow-hidden rounded mb-3 border border-green" style="height: 150px; width: 100%;">
+                            <img src="manjit.jpg" alt="Assistant Professor Dr.Mainejar Yadav" class="img-fluid w-100 h-100 object-fit-cover">
+                        </div>
+                        <h4 class="text-white fs-6 fw-bold mb-1">Dr. Mainejar Yadav</h4>
+                        <p class="small text-light-emphasis mb-2">Assistant Professor</p>
+                        <a href="#" class="text-green text-decoration-none mt-auto small fw-bold">Read Profile <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="py-5">
+        <div class="container text-center">
+            <h3 class="card-heading fs-3 border-bottom border-success pb-2 mb-5 d-inline-block">Our Achievers</h3>
+        </div>
+        <div class="overflow-hidden">
+            <marquee direction="left" scrollamount="20" onmouseover="this.stop();" onmouseout="this.start();">
+                <img class="achiever_img" src="./image/our achievers.png" alt="Achiever 1" >
+                <img class="achiever_img" src="./image/ach.png" alt="Achiever 2" >
+                </marquee>
+        </div>
+    </div>
+
+    <footer class="footer-section bg-dark-grey pt-5 border-top border-2 border-green text-light">
+        <div class="container pb-5">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-green fs-5 mb-4 border-bottom border-white pb-2"><img src="logo.png" alt="REC Logo" class="footer-logo me-2" style="height: 30px;"> REC Sonbhadra</h4>
+                    <p class="small">Committed to excellence in technical education and research. Empowering the next generation of engineers and innovators.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="https://www.facebook.com/recsonbhadra" class="text-green fs-5"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/recsonbhadra" class="text-green fs-5"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-green fs-5"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/recsonbhadra" class="text-green fs-5"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-green fs-5 mb-4 border-bottom border-white pb-2">Get in Touch</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> Visiting in REC-S</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> Research</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-green fs-5 mb-4 border-bottom border-white pb-2">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="https://aktu.ac.in/" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> AKTU</a></li>
+                        <li class="mb-2"><a href="https://www.aicte.gov.in/" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> AICTE</a></li>
+                        <li class="mb-2"><a href="https://nptel.ac.in/" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> NPTEL</a></li>
+                        <li class="mb-2"><a href="https://swayam.gov.in/" class="text-white text-decoration-none small"><i class="fas fa-caret-right text-green me-2"></i> SWAYAM</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-green fs-5 mb-4 border-bottom border-white pb-2">Contact Us</h4>
+                    <p class="small mb-1"><i class="fas fa-map-marker-alt text-green me-2"></i> Churk, Sonbhadra, UP 231206</p>
+                    <p class="small mb-1"><i class="fas fa-phone-alt text-green me-2"></i> <a href="tel:+9105444252002" class="text-white text-decoration-none">+91-05444-252002</a></p>
+                    <p class="small mb-3"><i class="fas fa-envelope text-green me-2"></i><a href="mailto:contact@recsonbhadra.ac.in" class="text-white text-decoration-none">contact@recsonbhadra.ac.in</a></p>
+                    <div class="map-placeholder overflow-hidden rounded border border-green">
+                         <iframe src="https://maps.google.com/maps?q=Rajkiya%20Engineering%20College%20Sonbhadra&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom bg-black text-center py-3 border-top border-secondary-subtle">
+            <div class="container">
+                <p class="m-0 small text-secondary">© 2025 Rajkiya Engineering College Sonbhadra. All Rights Reserved. | Designed by Arun Pratap Gautam</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
